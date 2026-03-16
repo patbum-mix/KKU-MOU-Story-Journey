@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOU Story Journey – KKU SDG Template</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&family=Prompt:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --kku-navy: #1a2b5e;
+    --kku-gold: #c8922a;
+    --kku-teal: #0d7a6e;
+    --kku-light: #f4f7fb;
+    --kku-white: #ffffff;
+    --kku-gray: #6b7c93;
+    --kku-border: #dde4f0;
+    --accent1: #e74c3c;
+    --accent2: #3498db;
+    --accent3: #27ae60;
+    --shadow-sm: 0 2px 8px rgba(26,43,94,0.08);
+    --shadow-md: 0 6px 24px rgba(26,43,94,0.12);
+    --shadow-lg: 0 12px 48px rgba(26,43,94,0.18);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Sarabun', sans-serif;
+    background: var(--kku-light);
+    color: #1e2d4a;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: linear-gradient(135deg, var(--kku-navy) 0%, #0f3460 60%, #16213e 100%);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .site-header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -80px;
+    width: 340px; height: 340px;
+    border-radius: 50%;
+    background: rgba(200,146,42,0.12);
+  }
+  .site-header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 10%;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(13,122,110,0.15);
+  }
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 36px 32px 28px;
+    position: relative; z-index: 1;
+  }
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(200,146,42,0.18);
+    border: 1px solid rgba(200,146,42,0.4);
+    color: #f0c76a;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .header-badge .dot { width:7px; height:7px; background:#f0c76a; border-radius:50%; animation: pulse 1.8s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  .header-title {
+    font-family: 'Prompt', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .header-title span { color: #f0c76a; }
+  .header-subtitle {
+    color: rgba(255,255,255,0.65);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+  .header-sdg-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+  }
+  .sdg-mini-badge {
+    width: 28px; height: 28px;
+    border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 800;
+    color: white; cursor: default;
+    transition: transform 0.15s;
+  }
+  .sdg-mini-badge:hover { transform: scale(1.18); }
+
+  /* ── MAIN CONTAINER ── */
+  .main { max-width: 900px; margin: 0 auto; padding: 32px 20px 60px; }
+
+  /* ── SECTION WRAPPER ── */
+  .section-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--kku-border);
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .section-card:hover { box-shadow: var(--shadow-md); }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--kku-border);
+    background: linear-gradient(to right, #f8faff, white);
+    cursor: pointer;
+    user-select: none;
+  }
+  .section-icon {
+    width: 42px; height: 42px;
+    border-radius: 11px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .section-num {
+    font-family: 'Prompt', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--kku-gray);
+  }
+  .section-title {
+    font-family: 'Prompt', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--kku-navy);
+  }
+  .section-toggle {
+    margin-left: auto;
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    background: var(--kku-light);
+    border: none;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    transition: all 0.2s;
+    color: var(--kku-gray);
+    flex-shrink: 0;
+  }
+  .section-toggle.open { background: var(--kku-navy); color: white; transform: rotate(180deg); }
+
+  .section-body {
+    padding: 24px;
+    display: none;
+  }
+  .section-body.open { display: block; }
+
+  /* ── FORM ELEMENTS ── */
+  .field-group { margin-bottom: 18px; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .field-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--kku-navy);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  label .req { color: #e74c3c; margin-left: 2px; }
+  label .hint {
+    font-weight: 400;
+    text-transform: none;
+    color: var(--kku-gray);
+    font-size: 11px;
+    letter-spacing: 0;
+    margin-left: 6px;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  input[type="url"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--kku-border);
+    border-radius: 9px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 14px;
+    color: #1e2d4a;
+    background: white;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    appearance: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--kku-teal);
+    box-shadow: 0 0 0 3px rgba(13,122,110,0.1);
+  }
+  textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+  select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7c93' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 36px; }
+
+  /* placeholder */
+  ::placeholder { color: #b0bec5; font-size: 13px; }
+
+  /* ── SDG PICKER ── */
+  .sdg-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .sdg-pick-btn {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 800;
+    color: white;
+    opacity: 0.45;
+    transition: opacity 0.15s, transform 0.15s, box-shadow 0.15s;
+    position: relative;
+  }
+  .sdg-pick-btn:hover { opacity: 0.8; transform: scale(1.07); }
+  .sdg-pick-btn.selected { opacity: 1; transform: scale(1.07); box-shadow: 0 3px 12px rgba(0,0,0,0.25); }
+  .sdg-pick-btn .sdg-num { font-size: 13px; font-weight: 800; line-height: 1; }
+  .sdg-pick-btn .sdg-lbl { font-size: 7px; font-weight: 600; line-height: 1.2; text-align: center; margin-top: 2px; opacity: 0.9; }
+
+  /* SDG colors */
+  .sdg-1{background:#e5243b} .sdg-2{background:#dda63a} .sdg-3{background:#4c9f38}
+  .sdg-4{background:#c5192d} .sdg-5{background:#ff3a21} .sdg-6{background:#26bde2}
+  .sdg-7{background:#fcc30b;color:#333 !important} .sdg-8{background:#a21942}
+  .sdg-9{background:#fd6925} .sdg-10{background:#dd1367} .sdg-11{background:#fd9d24;color:#333 !important}
+  .sdg-12{background:#bf8b2e} .sdg-13{background:#3f7e44} .sdg-14{background:#0a97d9}
+  .sdg-15{background:#56c02b} .sdg-16{background:#00689d} .sdg-17{background:#19486a}
+
+  /* ── ACTIVITIES TIMELINE ── */
+  .activities-list { list-style: none; }
+  .activity-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .activity-item::before {
+    content: '';
+    position: absolute;
+    left: 19px; top: 42px;
+    width: 2px;
+    bottom: -16px;
+    background: linear-gradient(to bottom, var(--kku-teal), transparent);
+    opacity: 0.3;
+  }
+  .activity-item:last-child::before { display: none; }
+
+  .activity-dot {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--kku-teal), #0a5c52);
+    color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800;
+    flex-shrink: 0;
+    box-shadow: 0 3px 10px rgba(13,122,110,0.3);
+    font-family: 'Prompt', sans-serif;
+  }
+  .activity-content { flex: 1; }
+  .activity-fields {
+    background: #f8fbff;
+    border: 1.5px solid #e0eaf8;
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .activity-fields .field-row { grid-template-columns: 2fr 1fr 1fr; }
+
+  .add-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border: 2px dashed var(--kku-teal);
+    border-radius: 10px;
+    background: transparent;
+    color: var(--kku-teal);
+    font-family: 'Sarabun', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+    justify-content: center;
+    margin-top: 8px;
+  }
+  .add-btn:hover { background: rgba(13,122,110,0.06); border-style: solid; }
+
+  .remove-btn {
+    width: 28px; height: 28px;
+    border-radius: 7px;
+    border: 1.5px solid #ffd7d7;
+    background: #fff5f5;
+    color: #e74c3c;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 8px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    align-self: flex-start;
+  }
+  .remove-btn:hover { background: #e74c3c; color: white; }
+
+  /* ── OUTCOMES / IMPACT ── */
+  .outcome-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .outcome-card {
+    background: #f8fbff;
+    border: 1.5px solid #e0eaf8;
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+  .outcome-card:hover { border-color: var(--kku-teal); }
+  .outcome-card .oc-icon { font-size: 24px; margin-bottom: 8px; display: block; }
+  .outcome-card label { text-align: center; text-transform: none; font-size: 11.5px; font-weight: 600; color: var(--kku-gray); margin-bottom: 6px; }
+  .outcome-card input { text-align: center; font-size: 20px; font-weight: 800; font-family: 'Prompt', sans-serif; color: var(--kku-navy); padding: 4px 8px; border: none; border-bottom: 2px solid var(--kku-border); border-radius: 0; width: 100%; }
+  .outcome-card input:focus { border-bottom-color: var(--kku-teal); box-shadow: none; }
+  .outcome-card .unit { font-size: 11px; color: var(--kku-gray); margin-top: 4px; }
+
+  /* ── QUOTE BLOCK ── */
+  .quote-block {
+    background: linear-gradient(135deg, rgba(13,122,110,0.06), rgba(26,43,94,0.04));
+    border-left: 4px solid var(--kku-teal);
+    border-radius: 0 12px 12px 0;
+    padding: 16px 18px;
+    margin-top: 8px;
+  }
+  .quote-block textarea { background: transparent; border: none; padding: 0; font-style: italic; font-size: 14px; min-height: 60px; }
+  .quote-block textarea:focus { box-shadow: none; border: none; }
+  .quote-attr { margin-top: 8px; display: flex; align-items: center; gap: 8px; }
+  .quote-attr input { border: none; border-bottom: 1.5px solid var(--kku-border); border-radius: 0; padding: 4px 0; font-size: 12px; color: var(--kku-gray); background: transparent; }
+  .quote-attr input:focus { box-shadow: none; border-bottom-color: var(--kku-teal); }
+  .quote-dash { color: var(--kku-gray); font-size: 12px; }
+
+  /* ── PREVIEW AREA ── */
+  .preview-panel {
+    background: linear-gradient(135deg, var(--kku-navy) 0%, #0f3460 100%);
+    border-radius: 16px;
+    padding: 28px;
+    color: white;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .preview-panel::before {
+    content: ''; position: absolute;
+    top: -50px; right: -50px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: rgba(200,146,42,0.1);
+  }
+  .preview-title {
+    font-family: 'Prompt', sans-serif;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: #f0c76a; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .preview-title::after { content:''; flex:1; height:1px; background:rgba(240,199,106,0.25); }
+
+  .story-flow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    position: relative; z-index: 1;
+  }
+  .story-node {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 12px;
+    line-height: 1.4;
+    min-width: 120px;
+    backdrop-filter: blur(4px);
+    transition: background 0.2s;
+  }
+  .story-node:hover { background: rgba(255,255,255,0.16); }
+  .story-node .node-label {
+    font-size: 9px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: #f0c76a; margin-bottom: 4px;
+  }
+  .story-node .node-val {
+    font-weight: 600; color: white; font-size: 13px;
+  }
+  .story-arrow {
+    font-size: 18px; color: rgba(255,255,255,0.4);
+    flex-shrink: 0;
+  }
+
+  .sdg-display-tags {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-top: 12px; position: relative; z-index:1;
+  }
+  .sdg-display-tag {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px; font-weight: 700;
+    color: white;
+    display: flex; align-items: center; gap: 4px;
+  }
+
+  /* ── ACTION BUTTONS ── */
+  .action-bar {
+    display: flex; gap: 12px; margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--kku-teal), #0a5c52);
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 14px; font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(13,122,110,0.35);
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(13,122,110,0.45); }
+  .btn-secondary {
+    background: white;
+    color: var(--kku-navy);
+    border: 1.5px solid var(--kku-border);
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 14px; font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .btn-secondary:hover { border-color: var(--kku-navy); background: var(--kku-light); }
+
+  /* ── PRINT / OUTPUT PREVIEW ── */
+  .output-preview {
+    display: none;
+    background: white;
+    border-radius: 16px;
+    padding: 36px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--kku-border);
+    margin-bottom: 20px;
+  }
+  .output-preview.show { display: block; }
+  .op-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 2px solid var(--kku-border); }
+  .op-logo-area { display: flex; align-items: center; gap: 12px; }
+  .op-logo-circle { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--kku-navy), #0f3460); display: flex; align-items:center; justify-content:center; font-size:20px; }
+  .op-uni { font-family: 'Prompt', sans-serif; font-size: 13px; font-weight: 700; color: var(--kku-navy); }
+  .op-sub { font-size: 11px; color: var(--kku-gray); }
+  .op-year { font-family: 'Prompt', sans-serif; font-size: 28px; font-weight: 800; color: var(--kku-gold); text-align: right; }
+  .op-year small { display: block; font-size: 10px; color: var(--kku-gray); font-weight: 400; }
+
+  .op-title { font-family: 'Prompt', sans-serif; font-size: 22px; font-weight: 800; color: var(--kku-navy); margin-bottom: 6px; }
+  .op-partners { font-size: 13px; color: var(--kku-gray); margin-bottom: 20px; }
+
+  .op-timeline {
+    position: relative;
+    padding-left: 28px;
+    border-left: 3px solid var(--kku-teal);
+    margin-bottom: 24px;
+  }
+  .op-tl-item { position: relative; margin-bottom: 18px; }
+  .op-tl-dot {
+    position: absolute;
+    left: -34px;
+    top: 3px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--kku-teal);
+    border: 2px solid white;
+    box-shadow: 0 0 0 2px var(--kku-teal);
+  }
+  .op-tl-phase { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--kku-teal); }
+  .op-tl-act { font-size: 14px; font-weight: 600; color: var(--kku-navy); }
+  .op-tl-desc { font-size: 13px; color: var(--kku-gray); margin-top: 2px; line-height: 1.5; }
+
+  .op-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+  .op-metric { background: var(--kku-light); border-radius: 10px; padding: 14px; text-align: center; }
+  .op-metric .val { font-family: 'Prompt', sans-serif; font-size: 22px; font-weight: 800; color: var(--kku-navy); }
+  .op-metric .lbl { font-size: 11px; color: var(--kku-gray); margin-top: 2px; }
+
+  .op-sdg-bar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+  .op-quote { border-left: 4px solid var(--kku-gold); padding: 12px 16px; background: #fffbf2; border-radius: 0 10px 10px 0; font-style: italic; color: #6b5c2e; font-size: 13px; margin-bottom: 20px; }
+  .op-quote-attr { font-size: 11px; font-weight: 700; color: var(--kku-gold); margin-top: 6px; font-style: normal; }
+
+  .op-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid var(--kku-border); font-size: 11px; color: var(--kku-gray); }
+
+  /* ── HELPER ── */
+  .tip-box {
+    background: linear-gradient(135deg, #e8f8f5, #f0f7ff);
+    border: 1px solid #b8e8de;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 12px;
+    color: #2d6a5e;
+    margin-bottom: 18px;
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .tip-box .tip-icon { font-size: 16px; flex-shrink: 0; }
+
+  /* ── PROGRESS STEPS ── */
+  .progress-steps {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+    background: white;
+    border-radius: 14px;
+    padding: 16px 24px;
+    border: 1px solid var(--kku-border);
+    box-shadow: var(--shadow-sm);
+  }
+  .step-item {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 6px; flex: 1; position: relative;
+  }
+  .step-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 16px; left: calc(50% + 16px);
+    width: calc(100% - 32px);
+    height: 2px;
+    background: var(--kku-border);
+  }
+  .step-item.done:not(:last-child)::after { background: var(--kku-teal); }
+  .step-circle {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--kku-border);
+    color: var(--kku-gray);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+    transition: all 0.3s;
+    font-family: 'Prompt', sans-serif;
+  }
+  .step-item.active .step-circle { background: var(--kku-teal); color: white; box-shadow: 0 3px 10px rgba(13,122,110,0.35); }
+  .step-item.done .step-circle { background: var(--kku-navy); color: white; }
+  .step-label { font-size: 10px; font-weight: 600; color: var(--kku-gray); text-align: center; }
+  .step-item.active .step-label { color: var(--kku-teal); }
+
+  @media (max-width: 640px) {
+    .field-row, .field-row-3, .outcome-grid { grid-template-columns: 1fr; }
+    .sdg-picker-grid { grid-template-columns: repeat(6, 1fr); }
+    .op-metrics { grid-template-columns: 1fr 1fr; }
+    .story-flow { flex-direction: column; }
+    .header-title { font-size: 22px; }
+    .activity-fields .field-row { grid-template-columns: 1fr; }
+  }
+
+  @media print {
+    .site-header, .main > .section-card, .progress-steps, .action-bar { display: none !important; }
+    .output-preview { display: block !important; box-shadow: none !important; padding: 0 !important; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="site-header">
+  <div class="header-inner">
+    <div class="header-badge">
+      <span class="dot"></span>
+      KKU SDG — MOU Impact Story Template
+    </div>
+    <h1 class="header-title">🤝 MOU Story Journey<br><span>เส้นทางผลกระทบ MOU</span></h1>
+    <p class="header-subtitle">Template สำหรับบันทึกเรื่องราว MOU ของคณะ เพื่อแสดงคุณค่าและการต่อยอดสู่เป้าหมายการพัฒนาที่ยั่งยืน (SDGs) ของ มข.</p>
+    <div class="header-sdg-row">
+      <span style="font-size:11px;color:rgba(255,255,255,0.5);margin-right:4px;">SDGs ที่เกี่ยวข้อง:</span>
+      <div class="sdg-mini-badge sdg-1">1</div><div class="sdg-mini-badge sdg-2">2</div>
+      <div class="sdg-mini-badge sdg-3">3</div><div class="sdg-mini-badge sdg-4">4</div>
+      <div class="sdg-mini-badge sdg-5">5</div><div class="sdg-mini-badge sdg-6">6</div>
+      <div class="sdg-mini-badge sdg-7">7</div><div class="sdg-mini-badge sdg-8">8</div>
+      <div class="sdg-mini-badge sdg-9">9</div><div class="sdg-mini-badge sdg-10">10</div>
+      <div class="sdg-mini-badge sdg-11">11</div><div class="sdg-mini-badge sdg-12">12</div>
+      <div class="sdg-mini-badge sdg-13">13</div><div class="sdg-mini-badge sdg-14">14</div>
+      <div class="sdg-mini-badge sdg-15">15</div><div class="sdg-mini-badge sdg-16">16</div>
+      <div class="sdg-mini-badge sdg-17">17</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- PROGRESS -->
+  <div class="progress-steps">
+    <div class="step-item active" id="step1">
+      <div class="step-circle">1</div>
+      <div class="step-label">ข้อมูล MOU</div>
+    </div>
+    <div class="step-item" id="step2">
+      <div class="step-circle">2</div>
+      <div class="step-label">กิจกรรม</div>
+    </div>
+    <div class="step-item" id="step3">
+      <div class="step-circle">3</div>
+      <div class="step-label">ผลลัพธ์</div>
+    </div>
+    <div class="step-item" id="step4">
+      <div class="step-circle">4</div>
+      <div class="step-label">SDGs</div>
+    </div>
+    <div class="step-item" id="step5">
+      <div class="step-circle">5</div>
+      <div class="step-label">ตัวอย่างสำเร็จ</div>
+    </div>
+  </div>
+
+  <!-- LIVE STORY PREVIEW -->
+  <div class="preview-panel">
+    <div class="preview-title">📖 Story Preview — เรื่องราวของคุณ</div>
+    <div class="story-flow" id="storyFlow">
+      <div class="story-node">
+        <div class="node-label">ใคร (Who)</div>
+        <div class="node-val" id="preWho">คณะ / หน่วยงาน</div>
+      </div>
+      <div class="story-arrow">→</div>
+      <div class="story-node">
+        <div class="node-label">ทำอะไรร่วมกับ</div>
+        <div class="node-val" id="preWith">พันธมิตร</div>
+      </div>
+      <div class="story-arrow">→</div>
+      <div class="story-node">
+        <div class="node-label">กิจกรรมหลัก</div>
+        <div class="node-val" id="preAct">กิจกรรม...</div>
+      </div>
+      <div class="story-arrow">→</div>
+      <div class="story-node">
+        <div class="node-label">ผลลัพธ์สำคัญ</div>
+        <div class="node-val" id="preResult">ผลที่เกิดขึ้น...</div>
+      </div>
+    </div>
+    <div class="sdg-display-tags" id="previewSdgTags">
+      <span style="font-size:11px;color:rgba(255,255,255,0.4);">เลือก SDGs ด้านล่างเพื่อแสดงที่นี่</span>
+    </div>
+  </div>
+
+  <!-- SECTION 1: MOU INFO -->
+  <div class="section-card">
+    <div class="section-header" onclick="toggleSection('sec1')">
+      <div class="section-icon" style="background:linear-gradient(135deg,#1a2b5e20,#1a2b5e10);">📋</div>
+      <div>
+        <div class="section-num">ส่วนที่ 1</div>
+        <div class="section-title">ข้อมูลพื้นฐาน MOU</div>
+      </div>
+      <button class="section-toggle open" id="toggle-sec1">▼</button>
+    </div>
+    <div class="section-body open" id="sec1">
+      <div class="tip-box">
+        <span class="tip-icon">💡</span>
+        <span><strong>คำแนะนำ:</strong> กรอกข้อมูลพื้นฐานของ MOU เช่น ชื่อโครงการ คณะ/หน่วยงานเจ้าของ และองค์กรภาคีที่ทำความร่วมมือด้วย</span>
+      </div>
+      <div class="field-group">
+        <label>ชื่อโครงการ MOU <span class="req">*</span></label>
+        <input type="text" id="mou_title" placeholder="เช่น ความร่วมมือทางวิชาการด้านเทคโนโลยีสะอาดระหว่าง มข. และ บริษัท HYAPSS" oninput="updatePreview()">
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label>คณะ / หน่วยงาน มข. <span class="req">*</span><span class="hint">(ผู้ดำเนินการหลัก)</span></label>
+          <input type="text" id="kku_unit" placeholder="เช่น คณะวิศวกรรมศาสตร์ มข." oninput="updatePreview()">
+        </div>
+        <div class="field-group">
+          <label>ผู้รับผิดชอบโครงการ <span class="req">*</span></label>
+          <input type="text" id="lead_person" placeholder="เช่น รศ.ดร.ชื่อ นามสกุล">
+        </div>
+      </div>
+      <div class="field-group">
+        <label>องค์กรภาคี / พันธมิตร <span class="req">*</span><span class="hint">(ฝ่ายที่ลงนาม MOU ด้วย)</span></label>
+        <input type="text" id="partner_name" placeholder="เช่น บริษัท การไฟฟ้าส่วนภูมิภาค / มหาวิทยาลัยแม่ฟ้าหลวง / กรมป่าไม้" oninput="updatePreview()">
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label>ประเภทภาคี</label>
+          <select id="partner_type">
+            <option value="">-- เลือกประเภท --</option>
+            <option>ภาครัฐ (หน่วยงานราชการ)</option>
+            <option>ภาคเอกชน (บริษัท/วิสาหกิจ)</option>
+            <option>มหาวิทยาลัย/สถาบันการศึกษา</option>
+            <option>องค์กรระหว่างประเทศ</option>
+            <option>องค์กรไม่แสวงหากำไร / NGO</option>
+            <option>ชุมชน / วิสาหกิจชุมชน</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label>ระดับความร่วมมือ</label>
+          <select id="partner_level">
+            <option value="">-- เลือก --</option>
+            <option>ระดับท้องถิ่น / จังหวัด</option>
+            <option>ระดับภูมิภาค (อีสาน)</option>
+            <option>ระดับชาติ</option>
+            <option>ระดับนานาชาติ</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label>วันที่ลงนาม MOU</label>
+          <input type="date" id="mou_date">
+        </div>
+        <div class="field-group">
+          <label>ระยะเวลา MOU</label>
+          <select id="mou_duration">
+            <option value="">-- เลือก --</option>
+            <option>1 ปี</option><option>2 ปี</option><option>3 ปี</option>
+            <option>5 ปี</option><option>ไม่มีกำหนด</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>วัตถุประสงค์หลักของ MOU <span class="req">*</span></label>
+        <textarea id="mou_objective" placeholder="อธิบายเป้าหมายหลักของความร่วมมือนี้ เช่น เพื่อพัฒนาหลักสูตรร่วม / วิจัยและพัฒนานวัตกรรม / ฝึกงานและพัฒนานักศึกษา / บริการวิชาการสู่ชุมชน"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: ACTIVITIES -->
+  <div class="section-card">
+    <div class="section-header" onclick="toggleSection('sec2')">
+      <div class="section-icon" style="background:linear-gradient(135deg,#0d7a6e20,#0d7a6e10);">🔗</div>
+      <div>
+        <div class="section-num">ส่วนที่ 2</div>
+        <div class="section-title">กิจกรรมความร่วมมือ (Activities)</div>
+      </div>
+      <button class="section-toggle" id="toggle-sec2">▼</button>
+    </div>
+    <div class="section-body" id="sec2">
+      <div class="tip-box">
+        <span class="tip-icon">🔗</span>
+        <span><strong>คำแนะนำ:</strong> ระบุกิจกรรมที่เกิดขึ้นจาก MOU นี้ตามลำดับเวลา โดยแต่ละกิจกรรมควรระบุว่า <em>ทำอะไร กับใคร และในปีใด</em> เพื่อแสดงให้เห็นการต่อยอด</span>
+      </div>
+      <ul class="activities-list" id="activitiesList"></ul>
+      <button class="add-btn" onclick="addActivity()">+ เพิ่มกิจกรรม</button>
+    </div>
+  </div>
+
+  <!-- SECTION 3: OUTCOMES -->
+  <div class="section-card">
+    <div class="section-header" onclick="toggleSection('sec3')">
+      <div class="section-icon" style="background:linear-gradient(135deg,#27ae6020,#27ae6010);">📊</div>
+      <div>
+        <div class="section-num">ส่วนที่ 3</div>
+        <div class="section-title">ผลลัพธ์และผลกระทบ (Outcomes & Impact)</div>
+      </div>
+      <button class="section-toggle" id="toggle-sec3">▼</button>
+    </div>
+    <div class="section-body" id="sec3">
+      <div class="tip-box">
+        <span class="tip-icon">📊</span>
+        <span><strong>คำแนะนำ:</strong> กรอกตัวเลขและผลลัพธ์ที่วัดได้จาก MOU นี้ เพื่อแสดงผลกระทบที่เป็นรูปธรรม</span>
+      </div>
+      <div class="outcome-grid">
+        <div class="outcome-card">
+          <span class="oc-icon">👥</span>
+          <label>จำนวนผู้รับประโยชน์</label>
+          <input type="text" id="oc_beneficiary" placeholder="0" oninput="updatePreview()">
+          <div class="unit">คน / ราย</div>
+        </div>
+        <div class="outcome-card">
+          <span class="oc-icon">🎓</span>
+          <label>นักศึกษาที่เกี่ยวข้อง</label>
+          <input type="text" id="oc_student" placeholder="0">
+          <div class="unit">คน</div>
+        </div>
+        <div class="outcome-card">
+          <span class="oc-icon">🔬</span>
+          <label>งานวิจัย/นวัตกรรม</label>
+          <input type="text" id="oc_research" placeholder="0">
+          <div class="unit">ชิ้น / โครงการ</div>
+        </div>
+        <div class="outcome-card">
+          <span class="oc-icon">💰</span>
+          <label>มูลค่าทางเศรษฐกิจ</label>
+          <input type="text" id="oc_value" placeholder="0">
+          <div class="unit">บาท / ล้านบาท</div>
+        </div>
+        <div class="outcome-card">
+          <span class="oc-icon">🌿</span>
+          <label>ผลด้านสิ่งแวดล้อม</label>
+          <input type="text" id="oc_env" placeholder="เช่น ลด CO₂ 15,000 ตัน">
+          <div class="unit">ระบุหน่วย</div>
+        </div>
+        <div class="outcome-card">
+          <span class="oc-icon">🤝</span>
+          <label>ความร่วมมือที่ต่อยอด</label>
+          <input type="text" id="oc_extend" placeholder="0">
+          <div class="unit">โครงการใหม่</div>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>ผลลัพธ์สำคัญที่สุด (Key Achievement) <span class="req">*</span></label>
+        <textarea id="key_achievement" placeholder="สรุปผลสำคัญที่สุดของ MOU นี้ในแบบ 1-2 ประโยค เช่น 'มข. ร่วมกับ HYAPSS ติดตั้งโซลาร์เซลล์ 30 MWp ช่วยลดคาร์บอนกว่า 15,000 ตันต่อปี และนำมข.ใกล้สู่เป้าหมาย Carbon Neutrality ปี 2572'" oninput="updatePreview()"></textarea>
+      </div>
+      <div class="field-group">
+        <label>ผลกระทบที่ต่อยอดออกไป (Spillover Impact)</label>
+        <textarea id="spillover" placeholder="กิจกรรมหรือโครงการใหม่ที่เกิดขึ้นจาก MOU นี้ เช่น การสร้างหลักสูตรใหม่ การเกิดสตาร์ทอัพ การพัฒนาชุมชน ฯลฯ"></textarea>
+      </div>
+      <!-- QUOTE -->
+      <div class="field-group">
+        <label>💬 คำพูดที่น่าจดจำ (Testimonial / Quote)</label>
+        <div class="quote-block">
+          <textarea placeholder='"อ้างอิงคำพูดจากผู้รับประโยชน์ ผู้บริหาร หรือพันธมิตร ที่สะท้อนคุณค่าของความร่วมมือนี้"' id="quote_text"></textarea>
+          <div class="quote-attr">
+            <span class="quote-dash">—</span>
+            <input type="text" id="quote_attr" placeholder="ชื่อ-ตำแหน่ง-องค์กร" style="flex:1">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: SDGs -->
+  <div class="section-card">
+    <div class="section-header" onclick="toggleSection('sec4')">
+      <div class="section-icon" style="background:linear-gradient(135deg,#3498db20,#3498db10);">🌐</div>
+      <div>
+        <div class="section-num">ส่วนที่ 4</div>
+        <div class="section-title">SDGs ที่เกี่ยวข้อง</div>
+      </div>
+      <button class="section-toggle" id="toggle-sec4">▼</button>
+    </div>
+    <div class="section-body" id="sec4">
+      <div class="tip-box">
+        <span class="tip-icon">🌐</span>
+        <span><strong>คำแนะนำ:</strong> คลิกเลือก SDGs ที่ MOU นี้มีส่วนช่วยขับเคลื่อน (สามารถเลือกได้มากกว่า 1 ข้อ)</span>
+      </div>
+      <div class="sdg-picker-grid">
+        <button class="sdg-pick-btn sdg-1" onclick="toggleSdg(1,this)"><span class="sdg-num">1</span><span class="sdg-lbl">No Poverty</span></button>
+        <button class="sdg-pick-btn sdg-2" onclick="toggleSdg(2,this)"><span class="sdg-num">2</span><span class="sdg-lbl">Zero Hunger</span></button>
+        <button class="sdg-pick-btn sdg-3" onclick="toggleSdg(3,this)"><span class="sdg-num">3</span><span class="sdg-lbl">Good Health</span></button>
+        <button class="sdg-pick-btn sdg-4" onclick="toggleSdg(4,this)"><span class="sdg-num">4</span><span class="sdg-lbl">Quality Edu</span></button>
+        <button class="sdg-pick-btn sdg-5" onclick="toggleSdg(5,this)"><span class="sdg-num">5</span><span class="sdg-lbl">Gender Eq.</span></button>
+        <button class="sdg-pick-btn sdg-6" onclick="toggleSdg(6,this)"><span class="sdg-num">6</span><span class="sdg-lbl">Clean Water</span></button>
+        <button class="sdg-pick-btn sdg-7" onclick="toggleSdg(7,this)"><span class="sdg-num">7</span><span class="sdg-lbl">Clean Energy</span></button>
+        <button class="sdg-pick-btn sdg-8" onclick="toggleSdg(8,this)"><span class="sdg-num">8</span><span class="sdg-lbl">Decent Work</span></button>
+        <button class="sdg-pick-btn sdg-9" onclick="toggleSdg(9,this)"><span class="sdg-num">9</span><span class="sdg-lbl">Innovation</span></button>
+        <button class="sdg-pick-btn sdg-10" onclick="toggleSdg(10,this)"><span class="sdg-num">10</span><span class="sdg-lbl">Reduce Ineq.</span></button>
+        <button class="sdg-pick-btn sdg-11" onclick="toggleSdg(11,this)"><span class="sdg-num">11</span><span class="sdg-lbl">Sustainable Cities</span></button>
+        <button class="sdg-pick-btn sdg-12" onclick="toggleSdg(12,this)"><span class="sdg-num">12</span><span class="sdg-lbl">Resp. Consump.</span></button>
+        <button class="sdg-pick-btn sdg-13" onclick="toggleSdg(13,this)"><span class="sdg-num">13</span><span class="sdg-lbl">Climate Action</span></button>
+        <button class="sdg-pick-btn sdg-14" onclick="toggleSdg(14,this)"><span class="sdg-num">14</span><span class="sdg-lbl">Life Below Water</span></button>
+        <button class="sdg-pick-btn sdg-15" onclick="toggleSdg(15,this)"><span class="sdg-num">15</span><span class="sdg-lbl">Life on Land</span></button>
+        <button class="sdg-pick-btn sdg-16" onclick="toggleSdg(16,this)"><span class="sdg-num">16</span><span class="sdg-lbl">Peace &amp; Justice</span></button>
+        <button class="sdg-pick-btn sdg-17" onclick="toggleSdg(17,this)"><span class="sdg-num">17</span><span class="sdg-lbl">Partnerships</span></button>
+      </div>
+      <div class="field-group" style="margin-top:16px;">
+        <label>อธิบายความเชื่อมโยงกับ SDGs</label>
+        <textarea placeholder="อธิบายว่า MOU นี้ส่งเสริม SDGs ที่เลือกอย่างไร เช่น 'การติดตั้งโซลาร์เซลล์ช่วยลดการปล่อยก๊าซเรือนกระจก (SDG 13) และส่งเสริมพลังงานสะอาด (SDG 7) พร้อมสร้างงานด้านพลังงาน (SDG 8)'"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: SUCCESS STORY -->
+  <div class="section-card">
+    <div class="section-header" onclick="toggleSection('sec5')">
+      <div class="section-icon" style="background:linear-gradient(135deg,#f39c1220,#f39c1210);">✨</div>
+      <div>
+        <div class="section-num">ส่วนที่ 5</div>
+        <div class="section-title">ตัวอย่างความสำเร็จ (Success Story)</div>
+      </div>
+      <button class="section-toggle" id="toggle-sec5">▼</button>
+    </div>
+    <div class="section-body" id="sec5">
+      <div class="tip-box">
+        <span class="tip-icon">✨</span>
+        <span><strong>คำแนะนำ:</strong> เล่าเรื่องราวความสำเร็จที่เป็นรูปธรรมที่สุด 1 เรื่อง ว่ามีใครได้รับประโยชน์อย่างไรจาก MOU นี้บ้าง</span>
+      </div>
+      <div class="field-group">
+        <label>หัวข้อ Success Story</label>
+        <input type="text" id="story_title" placeholder="เช่น จากโซลาร์เซลล์สู่ Carbon Neutrality: มข. ผนึก HYAPSS นำร่องพลังงานสะอาดในมหาวิทยาลัย">
+      </div>
+      <div class="field-group">
+        <label>ปัญหา/โจทย์เริ่มต้น (Problem)</label>
+        <textarea id="story_problem" placeholder="มข. เผชิญกับค่าใช้จ่ายพลังงานสูงและแรงกดดันในการลดคาร์บอน..."></textarea>
+      </div>
+      <div class="field-group">
+        <label>สิ่งที่ทำ (Action)</label>
+        <textarea id="story_action" placeholder="มข. ร่วมกับ HYAPSS ลงนาม MOU ติดตั้งโซลาร์เซลล์ 30 MWp บนหลังคาอาคาร..."></textarea>
+      </div>
+      <div class="field-group">
+        <label>ผลที่เกิดขึ้น (Result)</label>
+        <textarea id="story_result" placeholder="ลดคาร์บอนกว่า 15,000 ตันต่อปี ประหยัดค่าไฟฟ้าปีละ X ล้านบาท นักศึกษาได้เรียนรู้เทคโนโลยีจริง..."></textarea>
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label>ลิงก์บทความ / ข่าว</label>
+          <input type="url" id="story_link" placeholder="https://sdg.kku.ac.th/...">
+        </div>
+        <div class="field-group">
+          <label>URL รูปภาพประกอบ (ถ้ามี)</label>
+          <input type="url" id="story_img" placeholder="https://...">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTION BAR -->
+  <div class="action-bar">
+    <button class="btn-primary" onclick="generateOutput()">📄 สร้าง Story Card</button>
+    <button class="btn-secondary" onclick="loadExample()">🔍 ดูตัวอย่างข้อมูล</button>
+    <button class="btn-secondary" onclick="clearAll()">🗑️ ล้างข้อมูล</button>
+    <button class="btn-secondary" onclick="window.print()">🖨️ พิมพ์</button>
+  </div>
+
+  <!-- OUTPUT PREVIEW -->
+  <div class="output-preview" id="outputPreview">
+    <div class="op-header">
+      <div class="op-logo-area">
+        <div class="op-logo-circle">🎓</div>
+        <div>
+          <div class="op-uni">Khon Kaen University</div>
+          <div class="op-sub">MOU Impact Story — SDG Report</div>
+        </div>
+      </div>
+      <div class="op-year">
+        <div id="op_year">2026</div>
+        <small>ปีที่รายงาน</small>
+      </div>
+    </div>
+
+    <div id="op_title" class="op-title"></div>
+    <div id="op_partners" class="op-partners"></div>
+
+    <div id="op_sdg_bar" class="op-sdg-bar"></div>
+
+    <div class="op-timeline" id="op_timeline"></div>
+
+    <div class="op-metrics" id="op_metrics"></div>
+
+    <div id="op_quote"></div>
+
+    <div style="background:#f8fbff;border-radius:12px;padding:16px 18px;margin-bottom:20px;" id="op_story_block"></div>
+
+    <div class="op-footer">
+      <span>มหาวิทยาลัยขอนแก่น — <a href="https://sdg.kku.ac.th" style="color:var(--kku-teal)">sdg.kku.ac.th</a></span>
+      <span id="op_date_footer"></span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── SDG Data ──
+const sdgColors = {1:'#e5243b',2:'#dda63a',3:'#4c9f38',4:'#c5192d',5:'#ff3a21',6:'#26bde2',
+  7:'#fcc30b',8:'#a21942',9:'#fd6925',10:'#dd1367',11:'#fd9d24',12:'#bf8b2e',
+  13:'#3f7e44',14:'#0a97d9',15:'#56c02b',16:'#00689d',17:'#19486a'};
+const sdgNames = {1:'No Poverty',2:'Zero Hunger',3:'Good Health',4:'Quality Education',
+  5:'Gender Equality',6:'Clean Water',7:'Clean Energy',8:'Decent Work',9:'Innovation',
+  10:'Reduced Inequalities',11:'Sustainable Cities',12:'Responsible Consumption',
+  13:'Climate Action',14:'Life Below Water',15:'Life on Land',16:'Peace & Justice',17:'Partnerships'};
+
+let selectedSdgs = [];
+let activityCount = 0;
+
+// ── TOGGLE SECTION ──
+function toggleSection(id) {
+  const body = document.getElementById(id);
+  const btn = document.getElementById('toggle-' + id);
+  body.classList.toggle('open');
+  btn.classList.toggle('open');
+}
+
+// ── ACTIVITIES ──
+function addActivity() {
+  activityCount++;
+  const phaseOptions = ['ก่อนลงนาม (Pre-MOU)','ปีที่ 1','ปีที่ 2','ปีที่ 3','ต่อยอดใหม่'].map(o=>`<option>${o}</option>`).join('');
+  const typeOptions = ['การเรียนการสอน','การวิจัย','การบริการวิชาการ','การฝึกงาน/Internship','การพัฒนาหลักสูตร','การแลกเปลี่ยนบุคลากร','โครงการชุมชน','กิจกรรมนักศึกษา','อื่นๆ'].map(o=>`<option>${o}</option>`).join('');
+  const li = document.createElement('li');
+  li.className = 'activity-item';
+  li.id = 'act_' + activityCount;
+  li.innerHTML = `
+    <div class="activity-dot">${activityCount}</div>
+    <div class="activity-content">
+      <div class="activity-fields">
+        <div class="field-row" style="grid-template-columns:2fr 1fr 1fr">
+          <div class="field-group" style="margin-bottom:10px">
+            <label style="font-size:10px">ชื่อกิจกรรม<span class="req">*</span></label>
+            <input type="text" placeholder="เช่น ลงนาม MOU / อบรม AI Literacy / ติดตั้งอุปกรณ์" oninput="updateActivityPreview()">
+          </div>
+          <div class="field-group" style="margin-bottom:10px">
+            <label style="font-size:10px">ระยะ</label>
+            <select>${phaseOptions}</select>
+          </div>
+          <div class="field-group" style="margin-bottom:10px">
+            <label style="font-size:10px">ปี (พ.ศ.)</label>
+            <input type="text" placeholder="2568">
+          </div>
+        </div>
+        <div class="field-group" style="margin-bottom:0">
+          <label style="font-size:10px">ผู้เกี่ยวข้อง & ผลลัพธ์</label>
+          <input type="text" placeholder="เช่น อาจารย์ 5 คน นักศึกษา 120 คน → ได้รับ Certificate" oninput="updateActivityPreview()">
+        </div>
+        <div style="margin-top:10px">
+          <label style="font-size:10px">ประเภทกิจกรรม</label>
+          <select>${typeOptions}</select>
+        </div>
+      </div>
+    </div>
+    <button class="remove-btn" onclick="removeActivity(${activityCount})" title="ลบกิจกรรมนี้">✕</button>
+  `;
+  document.getElementById('activitiesList').appendChild(li);
+  updateActivityPreview();
+}
+
+function removeActivity(id) {
+  document.getElementById('act_' + id).remove();
+  updateActivityPreview();
+}
+
+function updateActivityPreview() {
+  const acts = document.querySelectorAll('#activitiesList .activity-item');
+  if (acts.length > 0) {
+    const firstInput = acts[0].querySelector('input[type="text"]');
+    if (firstInput && firstInput.value)
+      document.getElementById('preAct').textContent = firstInput.value;
+  }
+}
+
+// ── SDG TOGGLE ──
+function toggleSdg(n, btn) {
+  const idx = selectedSdgs.indexOf(n);
+  if (idx === -1) { selectedSdgs.push(n); btn.classList.add('selected'); }
+  else { selectedSdgs.splice(idx, 1); btn.classList.remove('selected'); }
+  updateSdgPreview();
+}
+
+function updateSdgPreview() {
+  const container = document.getElementById('previewSdgTags');
+  if (selectedSdgs.length === 0) {
+    container.innerHTML = '<span style="font-size:11px;color:rgba(255,255,255,0.4);">เลือก SDGs ด้านล่างเพื่อแสดงที่นี่</span>';
+    return;
+  }
+  const sorted = [...selectedSdgs].sort((a,b)=>a-b);
+  container.innerHTML = sorted.map(n =>
+    `<span class="sdg-display-tag" style="background:${sdgColors[n]}">${n} ${sdgNames[n]}</span>`
+  ).join('');
+}
+
+// ── LIVE PREVIEW UPDATE ──
+function updatePreview() {
+  const who = document.getElementById('kku_unit').value || 'คณะ / หน่วยงาน มข.';
+  const withWho = document.getElementById('partner_name').value || 'พันธมิตร';
+  const result = document.getElementById('key_achievement').value || 'ผลที่เกิดขึ้น...';
+  document.getElementById('preWho').textContent = who;
+  document.getElementById('preWith').textContent = withWho;
+  document.getElementById('preResult').textContent = result.length > 60 ? result.slice(0,57)+'...' : result;
+}
+
+// ── GENERATE OUTPUT ──
+function generateOutput() {
+  const title = document.getElementById('mou_title').value || '(ยังไม่ได้ระบุชื่อ MOU)';
+  const kku = document.getElementById('kku_unit').value || 'มหาวิทยาลัยขอนแก่น';
+  const partner = document.getElementById('partner_name').value || '—';
+  const partnerType = document.getElementById('partner_type').value;
+  const achievement = document.getElementById('key_achievement').value;
+  const quote = document.getElementById('quote_text').value;
+  const quoteAttr = document.getElementById('quote_attr').value;
+  const mouDate = document.getElementById('mou_date').value;
+  const storyTitle = document.getElementById('story_title').value;
+  const storyProblem = document.getElementById('story_problem').value;
+  const storyAction = document.getElementById('story_action').value;
+  const storyResult = document.getElementById('story_result').value;
+
+  // Title
+  document.getElementById('op_title').textContent = title;
+  document.getElementById('op_partners').innerHTML = `<strong>${kku}</strong> ${partner ? '× ' + partner : ''} ${partnerType ? '(' + partnerType + ')' : ''}`;
+  if (mouDate) document.getElementById('op_year').textContent = parseInt(mouDate.split('-')[0]) + 543;
+  document.getElementById('op_date_footer').textContent = 'รายงาน ณ วันที่ ' + new Date().toLocaleDateString('th-TH', {year:'numeric',month:'long',day:'numeric'});
+
+  // SDG bar
+  const sdgBar = document.getElementById('op_sdg_bar');
+  if (selectedSdgs.length > 0) {
+    sdgBar.innerHTML = selectedSdgs.sort((a,b)=>a-b).map(n =>
+      `<span class="sdg-display-tag" style="background:${sdgColors[n]};color:${n===7||n===11?'#333':'white'}">${n} ${sdgNames[n]}</span>`
+    ).join('');
+  } else {
+    sdgBar.innerHTML = '<span style="color:#b0bec5;font-size:12px;">ยังไม่ได้เลือก SDGs</span>';
+  }
+
+  // Timeline from activities
+  const acts = document.querySelectorAll('#activitiesList .activity-item');
+  const tl = document.getElementById('op_timeline');
+  if (acts.length === 0) {
+    tl.innerHTML = '<div style="color:#b0bec5;font-size:13px;">ยังไม่ได้ระบุกิจกรรม</div>';
+  } else {
+    tl.innerHTML = [...acts].map(li => {
+      const inputs = li.querySelectorAll('input[type="text"]');
+      const selects = li.querySelectorAll('select');
+      const actName = inputs[0]?.value || '—';
+      const phase = selects[0]?.value || '';
+      const year = inputs[1]?.value || '';
+      const desc = inputs[2]?.value || '';
+      const type = selects[1]?.value || '';
+      return `<div class="op-tl-item">
+        <div class="op-tl-dot"></div>
+        <div class="op-tl-phase">${phase} ${year ? '(' + year + ')' : ''} ${type ? '· ' + type : ''}</div>
+        <div class="op-tl-act">${actName}</div>
+        ${desc ? `<div class="op-tl-desc">${desc}</div>` : ''}
+      </div>`;
+    }).join('');
+  }
+
+  // Metrics
+  const metrics = [
+    {id:'oc_beneficiary', icon:'👥', lbl:'ผู้รับประโยชน์', unit:'คน'},
+    {id:'oc_student', icon:'🎓', lbl:'นักศึกษา', unit:'คน'},
+    {id:'oc_research', icon:'🔬', lbl:'งานวิจัย/นวัตกรรม', unit:'ชิ้น'},
+    {id:'oc_value', icon:'💰', lbl:'มูลค่าทางเศรษฐกิจ', unit:'บาท'},
+    {id:'oc_env', icon:'🌿', lbl:'ผลด้านสิ่งแวดล้อม', unit:''},
+    {id:'oc_extend', icon:'🤝', lbl:'โครงการต่อยอด', unit:'โครงการ'},
+  ].filter(m => document.getElementById(m.id)?.value);
+  document.getElementById('op_metrics').innerHTML = metrics.length > 0
+    ? metrics.map(m => `<div class="op-metric"><div class="val">${document.getElementById(m.id).value}</div><div class="lbl">${m.icon} ${m.lbl} ${m.unit ? '(' + m.unit + ')' : ''}</div></div>`).join('')
+    : '<div style="color:#b0bec5;grid-column:1/-1;font-size:13px;text-align:center">ยังไม่ได้ระบุตัวเลขผลลัพธ์</div>';
+
+  // Achievement
+  if (achievement) {
+    document.getElementById('op_metrics').insertAdjacentHTML('afterend',
+      `<div style="background:#f0f7ff;border:1.5px solid #d0e8f8;border-radius:12px;padding:14px 18px;margin-bottom:20px;">
+        <div style="font-size:11px;font-weight:700;color:#2980b9;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">🏆 Key Achievement</div>
+        <div style="font-size:14px;color:#1e2d4a;line-height:1.6">${achievement}</div>
+      </div>`
+    );
+  }
+
+  // Quote
+  const quoteDiv = document.getElementById('op_quote');
+  if (quote) {
+    quoteDiv.innerHTML = `<div class="op-quote">"${quote}"<div class="op-quote-attr">— ${quoteAttr || 'ผู้กล่าว'}</div></div>`;
+  } else { quoteDiv.innerHTML = ''; }
+
+  // Story block
+  const sb = document.getElementById('op_story_block');
+  if (storyTitle || storyProblem || storyAction || storyResult) {
+    sb.innerHTML = `
+      <div style="font-size:11px;font-weight:700;color:var(--kku-gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">✨ Success Story</div>
+      ${storyTitle ? `<div style="font-size:16px;font-weight:700;color:var(--kku-navy);margin-bottom:12px;">${storyTitle}</div>` : ''}
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+        ${storyProblem ? `<div><div style="font-size:10px;font-weight:700;color:#e74c3c;text-transform:uppercase;margin-bottom:4px;">❓ ปัญหา</div><div style="font-size:12px;line-height:1.5;color:#555">${storyProblem}</div></div>` : ''}
+        ${storyAction ? `<div><div style="font-size:10px;font-weight:700;color:var(--kku-teal);text-transform:uppercase;margin-bottom:4px;">⚡ การดำเนินการ</div><div style="font-size:12px;line-height:1.5;color:#555">${storyAction}</div></div>` : ''}
+        ${storyResult ? `<div><div style="font-size:10px;font-weight:700;color:#27ae60;text-transform:uppercase;margin-bottom:4px;">🎯 ผล</div><div style="font-size:12px;line-height:1.5;color:#555">${storyResult}</div></div>` : ''}
+      </div>`;
+    sb.style.display = 'block';
+  } else { sb.style.display = 'none'; }
+
+  const panel = document.getElementById('outputPreview');
+  panel.classList.add('show');
+  panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── LOAD EXAMPLE ──
+function loadExample() {
+  document.getElementById('mou_title').value = 'มข. ลงนาม HYAPSS ติดตั้งโซลาร์เซลล์ 30 MWp มุ่งสู่ Carbon Neutrality ปี 2572';
+  document.getElementById('kku_unit').value = 'มหาวิทยาลัยขอนแก่น (ฝ่ายบริหารสินทรัพย์)';
+  document.getElementById('lead_person').value = 'รศ.นพ.ชาญชัย พานทองวิริยะกุล (อธิการบดี)';
+  document.getElementById('partner_name').value = 'บริษัท HYAPSS (ประเทศไทย) จำกัด';
+  document.getElementById('partner_type').value = 'ภาคเอกชน (บริษัท/วิสาหกิจ)';
+  document.getElementById('partner_level').value = 'ระดับชาติ';
+  document.getElementById('mou_date').value = '2026-02-12';
+  document.getElementById('mou_duration').value = '3 ปี';
+  document.getElementById('mou_objective').value = 'เพื่อติดตั้งระบบโซลาร์เซลล์บนหลังคาอาคาร มข. ขนาด 30 MWp ลดการปล่อยก๊าซคาร์บอนไดออกไซด์ ประหยัดพลังงาน และขับเคลื่อนมข.สู่เป้าหมาย Carbon Neutrality ภายในปี 2572';
+
+  // Add activities
+  document.getElementById('activitiesList').innerHTML = '';
+  activityCount = 0;
+  addActivity();
+  const act1 = document.querySelectorAll('#act_1 input[type="text"]');
+  act1[0].value = 'ลงนาม MOU อย่างเป็นทางการ';
+  act1[1].value = '2569';
+  act1[2].value = 'ผู้บริหาร มข. + ทีม HYAPSS → สัญญาผูกพัน 30 MWp';
+  document.querySelector('#act_1 select').value = 'ปีที่ 1';
+
+  addActivity();
+  const act2 = document.querySelectorAll('#act_2 input[type="text"]');
+  act2[0].value = 'สำรวจพื้นที่ & ออกแบบระบบ';
+  act2[1].value = '2569';
+  act2[2].value = 'วิศวกร 12 คน สำรวจอาคาร 40 หลัง → แบบแปลนติดตั้ง';
+  document.querySelectorAll('#act_2 select')[0].value = 'ปีที่ 1';
+
+  addActivity();
+  const act3 = document.querySelectorAll('#act_3 input[type="text"]');
+  act3[0].value = 'ติดตั้งโซลาร์เซลล์ phase 1 (15 MWp)';
+  act3[1].value = '2570';
+  act3[2].value = 'นักศึกษาวิศวะ 50 คนเรียนรู้ on-site → ลด CO₂ 7,500 ตัน/ปี';
+  document.querySelectorAll('#act_3 select')[0].value = 'ปีที่ 2';
+
+  addActivity();
+  const act4 = document.querySelectorAll('#act_4 input[type="text"]');
+  act4[0].value = 'เปิด KKUVolts Lab & หลักสูตรพลังงานสะอาด';
+  act4[1].value = '2570';
+  act4[2].value = 'นักศึกษา 200 คน/ปี + งานวิจัยแบตเตอรี่ 3 โครงการ';
+  document.querySelectorAll('#act_4 select')[0].value = 'ปีที่ 2';
+
+  document.getElementById('oc_beneficiary').value = '50,000+';
+  document.getElementById('oc_student').value = '200';
+  document.getElementById('oc_research').value = '3';
+  document.getElementById('oc_value').value = '120 ล้าน';
+  document.getElementById('oc_env').value = 'ลด CO₂ 15,000 ตัน/ปี';
+  document.getElementById('oc_extend').value = '2';
+  document.getElementById('key_achievement').value = 'มข.ติดตั้งโซลาร์เซลล์ 30 MWp ลดคาร์บอนกว่า 15,000 ตันต่อปี ประหยัดค่าไฟฟ้า 120 ล้านบาทต่อปี และกลายเป็นต้นแบบมหาวิทยาลัยสีเขียวในภูมิภาคอาเซียน';
+  document.getElementById('spillover').value = 'เกิดหลักสูตร "Solar Energy Engineering" ใหม่, KKUVolts Lab วิจัยแบตเตอรี่, นักศึกษาฝึกงาน HYAPSS 30 คน/ปี, ชุมชนรอบรั้ว มข. รับถ่ายทอดเทคโนโลยีพลังงาน';
+  document.getElementById('quote_text').value = 'ความร่วมมือนี้ไม่ใช่แค่การติดตั้งแผงโซลาร์ แต่มันคือการเปลี่ยนวิธีคิดของมหาวิทยาลัยและสังคมต่อพลังงานสะอาด';
+  document.getElementById('quote_attr').value = 'รศ.นพ.ชาญชัย พานทองวิริยะกุล, อธิการบดี มหาวิทยาลัยขอนแก่น';
+  document.getElementById('story_title').value = 'จากหลังคาอาคารสู่ Carbon Neutrality: มข. × HYAPSS สร้างต้นแบบพลังงานสะอาดมหาวิทยาลัยในอาเซียน';
+  document.getElementById('story_problem').value = 'มข. ใช้ไฟฟ้ากว่า 80 ล้านหน่วยต่อปี ก่อให้เกิด CO₂ มหาศาล และมีแรงกดดันจาก THE Impact Rankings ให้แสดงผลด้านสิ่งแวดล้อมที่จับต้องได้';
+  document.getElementById('story_action').value = 'ลงนาม MOU กับ HYAPSS ออกแบบ-ติดตั้งโซลาร์เซลล์ 30 MWp บนหลังคาอาคาร 40 หลัง พร้อมระบบ BESS และ Smart Grid พัฒนาหลักสูตรร่วมและเปิด KKUVolts Lab';
+  document.getElementById('story_result').value = 'ลด CO₂ 15,000 ตัน/ปี เท่ากับปลูกต้นไม้ 750,000 ต้น ประหยัดไฟ 120 ล้านบาท/ปี นักศึกษา 200 คน/ปีได้เรียนรู้เทคโนโลยีจริง มข.ติด Top 100 THE SDG 7 ระดับโลก';
+
+  // Auto-select SDGs
+  [7,9,13,17].forEach(n => {
+    selectedSdgs = [];
+    document.querySelectorAll('.sdg-pick-btn').forEach(b => b.classList.remove('selected'));
+  });
+  [7,9,13,17].forEach(n => {
+    selectedSdgs.push(n);
+    document.querySelector(`.sdg-${n}`).classList.add('selected');
+  });
+
+  updatePreview();
+  updateSdgPreview();
+
+  // Open all sections
+  ['sec1','sec2','sec3','sec4','sec5'].forEach(id => {
+    document.getElementById(id).classList.add('open');
+    document.getElementById('toggle-'+id).classList.add('open');
+  });
+
+  alert('✅ โหลดข้อมูลตัวอย่างสำเร็จ! เลื่อนดูข้อมูลที่กรอกไว้ แล้วกด "สร้าง Story Card" เพื่อดูผล');
+}
+
+// ── CLEAR ──
+function clearAll() {
+  if (!confirm('ต้องการล้างข้อมูลทั้งหมด?')) return;
+  document.querySelectorAll('input[type="text"],input[type="date"],input[type="url"],textarea,select').forEach(el => el.value = '');
+  document.getElementById('activitiesList').innerHTML = '';
+  activityCount = 0;
+  selectedSdgs = [];
+  document.querySelectorAll('.sdg-pick-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('outputPreview').classList.remove('show');
+  updatePreview();
+  updateSdgPreview();
+}
+
+// ── INIT: Add 2 default activities ──
+window.onload = function() {
+  addActivity();
+  addActivity();
+
+  // Open section 1 by default
+  document.getElementById('sec1').classList.add('open');
+  document.getElementById('toggle-sec1').classList.add('open');
+};
+</script>
+</body>
+</html>
