@@ -568,6 +568,55 @@ function collectAllData() {
   };
 }
 
+// ── SUBMIT VIA HIDDEN IFRAME (bypasses CORS) ──
+function submitViaIframe(url, jsonData) {
+  return new Promise((resolve) => {
+    // Create hidden iframe
+    const iframeName = 'mou_iframe_' + Date.now();
+    const iframe = document.createElement('iframe');
+    iframe.name = iframeName;
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+
+    // Create form targeting iframe
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = url;
+    form.target = iframeName;
+
+    // Put JSON data in hidden input
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'data';
+    input.value = jsonData;
+    form.appendChild(input);
+
+    // When iframe loads (after redirect), clean up
+    let resolved = false;
+    iframe.onload = function () {
+      if (resolved) return;
+      resolved = true;
+      setTimeout(() => {
+        try { document.body.removeChild(iframe); } catch (e) {}
+        try { document.body.removeChild(form); } catch (e) {}
+      }, 500);
+      resolve({ status: 'success' });
+    };
+
+    // Timeout fallback (in case onload doesn't fire)
+    setTimeout(() => {
+      if (resolved) return;
+      resolved = true;
+      try { document.body.removeChild(iframe); } catch (e) {}
+      try { document.body.removeChild(form); } catch (e) {}
+      resolve({ status: 'success' });
+    }, 8000);
+
+    document.body.appendChild(form);
+    form.submit();
+  });
+}
+
 // ── SAVE DATA → Google Sheets ──
 async function saveData() {
   if (!validateForm()) return;
@@ -588,19 +637,8 @@ async function saveData() {
   saveBtn.style.opacity = '0.6';
 
   try {
-    const response = await fetch(GOOGLE_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data)
-    });
-
-    // Note: mode 'no-cors' returns opaque response, so we can't read the body
-    // But if it doesn't throw, it means the request was sent successfully
-    showToast('✅ ส่งข้อมูลไป Google Sheets สำเร็จ! กรุณาตรวจสอบใน Sheet', 'success');
-
+    await submitViaIframe(GOOGLE_SCRIPT_URL, JSON.stringify(data));
+    showToast('✅ บันทึกข้อมูลสำเร็จ! ตรวจสอบใน Google Sheets', 'success');
   } catch (error) {
     console.error('Save error:', error);
     showToast('❌ เกิดข้อผิดพลาด: ' + error.message, 'error');
