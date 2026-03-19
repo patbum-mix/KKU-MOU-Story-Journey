@@ -16,6 +16,11 @@ const sdgNames = {
   13:'Climate Action',14:'Life Below Water',15:'Life on Land',16:'Peace & Justice',17:'Partnerships'
 };
 
+// ══════════════════════════════════════════════════════════
+// ⚠️ ใส่ URL จาก Google Apps Script Web App ตรงนี้
+// ══════════════════════════════════════════════════════════
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzE51XN7YLvbuaS5dksf04fFgVxwQ9roC3hjAMq_risUo3MOW2hJGJo_07ApR7EA3kr3Q/exec';
+
 let selectedSdgs = [];
 let activityCounter = 0; // internal counter for unique IDs
 
@@ -563,17 +568,48 @@ function collectAllData() {
   };
 }
 
-// ── SAVE DATA (placeholder — will connect to Google Sheets) ──
-function saveData() {
+// ── SAVE DATA → Google Sheets ──
+async function saveData() {
   if (!validateForm()) return;
 
+  // Check if URL is configured
+  if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL === 'YOUR_GOOGLE_SCRIPT_URL_HERE') {
+    showToast('❌ ยังไม่ได้ตั้งค่า Google Script URL ใน app.js', 'error');
+    return;
+  }
+
   const data = collectAllData();
-  console.log('📦 Data to save:', data);
 
-  // TODO: ส่งข้อมูลไป Google Sheets ผ่าน Apps Script Web App
-  // fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: JSON.stringify(data) })
+  // Show loading
+  const saveBtn = document.querySelector('.btn-save');
+  const originalText = saveBtn.innerHTML;
+  saveBtn.innerHTML = '⏳ กำลังบันทึก...';
+  saveBtn.disabled = true;
+  saveBtn.style.opacity = '0.6';
 
-  showToast('⚠️ ยังไม่ได้เชื่อม Google Sheets — ดูข้อมูลใน Console (F12)', 'info');
+  try {
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    });
+
+    // Note: mode 'no-cors' returns opaque response, so we can't read the body
+    // But if it doesn't throw, it means the request was sent successfully
+    showToast('✅ ส่งข้อมูลไป Google Sheets สำเร็จ! กรุณาตรวจสอบใน Sheet', 'success');
+
+  } catch (error) {
+    console.error('Save error:', error);
+    showToast('❌ เกิดข้อผิดพลาด: ' + error.message, 'error');
+  } finally {
+    // Restore button
+    saveBtn.innerHTML = originalText;
+    saveBtn.disabled = false;
+    saveBtn.style.opacity = '1';
+  }
 }
 
 // ── LOAD EXAMPLE ──
