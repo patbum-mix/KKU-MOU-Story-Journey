@@ -19,7 +19,7 @@ const sdgNames = {
 // ══════════════════════════════════════════════════════════
 // ⚠️ ใส่ URL จาก Google Apps Script Web App ตรงนี้
 // ══════════════════════════════════════════════════════════
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzE51XN7YLvbuaS5dksf04fFgVxwQ9roC3hjAMq_risUo3MOW2hJGJo_07ApR7EA3kr3Q/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzlGX0mfz28dwPo6AGTo1X1K5OfHDYmu1h_KTbqLdyDXp2KdrrR7vsYdY5lGmc9kHnNoQ/exec';
 
 let selectedSdgs = [];
 let activityCounter = 0; // internal counter for unique IDs
@@ -568,55 +568,6 @@ function collectAllData() {
   };
 }
 
-// ── SUBMIT VIA HIDDEN IFRAME (bypasses CORS) ──
-function submitViaIframe(url, jsonData) {
-  return new Promise((resolve) => {
-    // Create hidden iframe
-    const iframeName = 'mou_iframe_' + Date.now();
-    const iframe = document.createElement('iframe');
-    iframe.name = iframeName;
-    iframe.style.display = 'none';
-    document.body.appendChild(iframe);
-
-    // Create form targeting iframe
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = url;
-    form.target = iframeName;
-
-    // Put JSON data in hidden input
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = 'data';
-    input.value = jsonData;
-    form.appendChild(input);
-
-    // When iframe loads (after redirect), clean up
-    let resolved = false;
-    iframe.onload = function () {
-      if (resolved) return;
-      resolved = true;
-      setTimeout(() => {
-        try { document.body.removeChild(iframe); } catch (e) {}
-        try { document.body.removeChild(form); } catch (e) {}
-      }, 500);
-      resolve({ status: 'success' });
-    };
-
-    // Timeout fallback (in case onload doesn't fire)
-    setTimeout(() => {
-      if (resolved) return;
-      resolved = true;
-      try { document.body.removeChild(iframe); } catch (e) {}
-      try { document.body.removeChild(form); } catch (e) {}
-      resolve({ status: 'success' });
-    }, 8000);
-
-    document.body.appendChild(form);
-    form.submit();
-  });
-}
-
 // ── SAVE DATA → Google Sheets ──
 async function saveData() {
   if (!validateForm()) return;
@@ -637,13 +588,25 @@ async function saveData() {
   saveBtn.style.opacity = '0.6';
 
   try {
-    await submitViaIframe(GOOGLE_SCRIPT_URL, JSON.stringify(data));
+    // ใช้ fetch + URLSearchParams (application/x-www-form-urlencoded)
+    // เป็น "simple request" → ไม่มี CORS preflight
+    // Google Apps Script รับข้อมูลใน e.parameter.data
+    await fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: new URLSearchParams({
+        data: JSON.stringify(data)
+      })
+    });
+
+    // mode: 'no-cors' = opaque response (อ่านผลไม่ได้)
+    // แต่ข้อมูลถูกส่งไปแล้ว → ตรวจสอบที่ Sheet
     showToast('✅ บันทึกข้อมูลสำเร็จ! ตรวจสอบใน Google Sheets', 'success');
+
   } catch (error) {
     console.error('Save error:', error);
     showToast('❌ เกิดข้อผิดพลาด: ' + error.message, 'error');
   } finally {
-    // Restore button
     saveBtn.innerHTML = originalText;
     saveBtn.disabled = false;
     saveBtn.style.opacity = '1';
