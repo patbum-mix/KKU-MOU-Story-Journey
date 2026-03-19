@@ -19,7 +19,7 @@ const sdgNames = {
 // ══════════════════════════════════════════════════════════
 // ⚠️ ใส่ URL จาก Google Apps Script Web App ตรงนี้
 // ══════════════════════════════════════════════════════════
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzlGX0mfz28dwPo6AGTo1X1K5OfHDYmu1h_KTbqLdyDXp2KdrrR7vsYdY5lGmc9kHnNoQ/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyyT_Q2URYgFMMiAmpEZtP5ba0KJ0Cxddk15KOKY4MARm9bflkRpyxrT4WQMOvWpv1diA/exec';
 
 let selectedSdgs = [];
 let activityCounter = 0; // internal counter for unique IDs
@@ -588,20 +588,27 @@ async function saveData() {
   saveBtn.style.opacity = '0.6';
 
   try {
-    // ใช้ fetch + URLSearchParams (application/x-www-form-urlencoded)
-    // เป็น "simple request" → ไม่มี CORS preflight
-    // Google Apps Script รับข้อมูลใน e.parameter.data
-    await fetch(GOOGLE_SCRIPT_URL, {
+    // ใช้ Content-Type: text/plain → "simple request" (ไม่มี CORS preflight)
+    // Google Apps Script จะ redirect 302 แล้วส่งกลับพร้อม CORS headers
+    // ข้อมูล JSON อยู่ใน e.postData.contents ฝั่ง GAS
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
       method: 'POST',
-      mode: 'no-cors',
-      body: new URLSearchParams({
-        data: JSON.stringify(data)
-      })
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8',
+      },
+      body: JSON.stringify(data),
+      redirect: 'follow'
     });
 
-    // mode: 'no-cors' = opaque response (อ่านผลไม่ได้)
-    // แต่ข้อมูลถูกส่งไปแล้ว → ตรวจสอบที่ Sheet
-    showToast('✅ บันทึกข้อมูลสำเร็จ! ตรวจสอบใน Google Sheets', 'success');
+    // อ่านผลลัพธ์จาก Apps Script
+    const result = await response.json();
+
+    if (result.status === 'success') {
+      showToast('✅ ' + result.message, 'success');
+    } else {
+      showToast('❌ ' + (result.message || 'เกิดข้อผิดพลาด'), 'error');
+      console.error('Save response:', result);
+    }
 
   } catch (error) {
     console.error('Save error:', error);
